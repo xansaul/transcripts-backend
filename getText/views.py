@@ -5,13 +5,14 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from .serializers import VideoInfoSerializer
-
+ 
 from .serializers import UrlSerializer
 from .use_cases.get_urls_from_playlist import get_playlist_videos
 
 from .utils.video_processing import process_video, chunk_videos
 from .utils.save_videos_in_txt import save_videos
+
+from videosTxts.serializers import VideoInfoSerializer
 class GetTextApi(APIView):
 
     def post(self, request):
@@ -65,3 +66,6 @@ class GetTextApiStream(APIView):
                         }) + "\n"
 
         return StreamingHttpResponse(stream_videos(), content_type="application/json")
+
+
+

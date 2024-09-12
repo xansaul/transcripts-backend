@@ -3,6 +3,6 @@ from .views import GetTextApi
 
 
 urlpatterns = [
-    path('get-text/', GetTextApi.as_view())
+    path('generate/get-text/', GetTextApi.as_view())
 ]
             
