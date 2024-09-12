@@ -24,10 +24,9 @@ def download_youtube_audio(url, output_path):
         upload_date = info_dict.get('upload_date', 'Desconocida')
         
         formatted_date = (
-            f"{upload_date[6:]}/{upload_date[4:6]}/{upload_date[2:4]}"
+            f"{upload_date[0:4]}-{upload_date[4:6]}-{upload_date[6:]}"
             if upload_date != 'Desconocida' else upload_date
         )
-        
         video_info['title'] = video_title
         video_info['upload_date'] = formatted_date
         
