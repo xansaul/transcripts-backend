@@ -2,15 +2,15 @@ import yt_dlp
 import uuid
 
 def download_youtube_audio(url, output_path):
-    audio_title = uuid.uuid4()
+    video_uuid = uuid.uuid4()
     video_info = {
         "title": "",
         "upload_date": "",
-        "audio_id": audio_title
+        "video_uuid": video_uuid
     }
     ydl_opts = {
         'format': 'bestaudio/best',  # Descargar el mejor audio disponible
-        'outtmpl': f'{output_path}/{audio_title}.%(ext)s',
+        'outtmpl': f'{output_path}/{video_uuid}.%(ext)s',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'wav',  # Puedes cambiarlo a 'wav', 'm4a', etc.
@@ -27,7 +27,7 @@ def download_youtube_audio(url, output_path):
             f"{upload_date[6:]}/{upload_date[4:6]}/{upload_date[0:4]}"
             if upload_date != 'Desconocida' else upload_date
         )
-        print(formatted_date)
+
         video_info['title'] = video_title
         video_info['upload_date'] = formatted_date
         
