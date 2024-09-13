@@ -1,10 +1,10 @@
 from rest_framework.viewsets import ModelViewSet
 from .models import VideoTranscription
-from .serializers import VideoInfoSerialize
+from .serializers import VideoInfoSerializer
 
 
 class VideosTxtsApi(ModelViewSet):
     queryset = VideoTranscription.objects.all()
-    serializer_class = VideoInfoSerialize
+    serializer_class = VideoInfoSerializer
     
             

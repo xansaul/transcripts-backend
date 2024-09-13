@@ -1,5 +1,4 @@
-import json
-from django.http import StreamingHttpResponse
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -10,7 +9,7 @@ from .use_cases.get_urls_from_playlist import get_playlist_videos
 from .utils.video_processing import process_videos_in_parallel
 from .utils.save_videos_in_txt import save_videos_and_generate_text_files
 
-from videosTxts.serializers import VideoInfoSerialize
+from videosTxts.serializers import VideoInfoSerializer
 from videosTxts.models import VideoTranscription
 
 
@@ -35,7 +34,7 @@ class GetTextApi(APIView):
         videos_urls = get_playlist_videos(data.validated_data.get("url"))
         videos_info = process_videos_in_parallel(videos_urls)
         videos = save_videos_and_generate_text_files(videos_info)
-        videos_serialized = VideoInfoSerialize(videos, many= True) 
+        videos_serialized = VideoInfoSerializer(videos, many= True) 
 
         
         return Response({

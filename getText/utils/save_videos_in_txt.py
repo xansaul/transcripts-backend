@@ -37,12 +37,9 @@ def save_videos_and_generate_text_files(videos):
             print(f"Date parsing error: {e}")
             continue
 
-
-    VideoTranscription.objects.bulk_create(video_objects)
     
     for video_db, txt in zip(video_objects, txts_objects):
-        txt.video = video_db
-        txt.save()
+        video_db.txt_file = txt
         
         template = f"""
 {video_db.title}
@@ -50,5 +47,9 @@ def save_videos_and_generate_text_files(videos):
 {video.get('text')}
         """
         create_txt(template, txt.id)
-        
+
+        txt.save()
+
+    VideoTranscription.objects.bulk_create(video_objects)
+
     return video_objects
