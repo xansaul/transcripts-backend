@@ -12,18 +12,6 @@ from .utils.save_videos_in_txt import save_videos_and_generate_text_files
 from videosTxts.serializers import VideoInfoSerializer
 from videosTxts.models import VideoTranscription
 
-
-
-"""
-    video_info = {
-        "title": "",
-        "upload_date": "",
-        "video_uuid": video_uuid,
-        "text": ""
-    }
-
-"""
-
 class GetTextApi(APIView):
 
     def post(self, request):
@@ -38,7 +26,7 @@ class GetTextApi(APIView):
 
         
         return Response({
-            "videos":videos_serialized.data
+            "videos":videos_serialized.data,
         })
 
 

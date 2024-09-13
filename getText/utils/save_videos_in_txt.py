@@ -25,8 +25,9 @@ def save_videos_and_generate_text_files(videos):
     for video in videos:
         try:
             upload_date = datetime.strptime(video.get('upload_date'), "%d/%m/%Y").date()
-            
-            video_db = VideoTranscription(title=video.get('title'), upload_date=upload_date)
+            title = video.get('title')
+            text=video.get('text').strip()
+            video_db = VideoTranscription(title=title, upload_date=upload_date,text=text )
             video_objects.append(video_db)
             
             
@@ -41,8 +42,7 @@ def save_videos_and_generate_text_files(videos):
     for video_db, txt in zip(video_objects, txts_objects):
         video_db.txt_file = txt
         
-        template = f"""
-{video_db.title}
+        template = f"""{video_db.title}
 {video_db.upload_date.strftime('%d/%m/%Y')}
 {video.get('text')}
         """
@@ -51,5 +51,5 @@ def save_videos_and_generate_text_files(videos):
         txt.save()
 
     VideoTranscription.objects.bulk_create(video_objects)
-
+    
     return video_objects

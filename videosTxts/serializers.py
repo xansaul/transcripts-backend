@@ -20,4 +20,4 @@ class VideoInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = VideoTranscription
-        fields = ['title', 'upload_date', 'txt_file']
+        fields = ['id','title', 'upload_date', 'txt_file', 'text']

@@ -5,6 +5,7 @@ class VideoTranscription(models.Model):
     title = models.CharField(max_length=250)
     upload_date = models.DateField()
     txt_file = models.OneToOneField('TxtFile', on_delete=models.CASCADE, related_name='video_transcription')
+    text = models.TextField()
     def __str__(self):
         return f"{self.title}"
     
