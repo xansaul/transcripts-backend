@@ -15,6 +15,8 @@ def get_playlist_videos(playlist_url):
                 video_url = video.get('url')
                 if video_url:
                     video_urls.append(f"https://www.youtube.com/watch?v={video['id']}")
+        else:
+            video_urls.append(playlist_url)
 
     return video_urls
 
