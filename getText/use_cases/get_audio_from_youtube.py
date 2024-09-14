@@ -9,12 +9,12 @@ def download_youtube_audio(url, output_path):
         "video_uuid": video_uuid
     }
     ydl_opts = {
-        'format': 'bestaudio/best',  # Descargar el mejor audio disponible
+        'format': 'bestaudio/best',  
         'outtmpl': f'{output_path}/{video_uuid}.%(ext)s',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'wav',  # Puedes cambiarlo a 'wav', 'm4a', etc.
-            'preferredquality': '192',  # Calidad del audio (192 kbps en este caso)
+            'preferredcodec': 'wav', 
+            'preferredquality': '192',
         }],
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:

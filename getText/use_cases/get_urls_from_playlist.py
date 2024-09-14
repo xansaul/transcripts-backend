@@ -2,8 +2,8 @@ import yt_dlp
 
 def get_playlist_videos(playlist_url):
     ydl_opts = {
-        'skip_download': True,  # No descargar los videos
-        'extract_flat': 'in_playlist',  # Extraer URLs dentro de la playlist
+        'skip_download': True,  
+        'extract_flat': 'in_playlist',  
     }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
