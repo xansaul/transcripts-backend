@@ -3,9 +3,11 @@ from django.conf import settings
 from videosTxts.models import TxtFile, VideoTranscription
 from datetime import datetime
 
+TXTS_PATH = os.path.join(settings.MEDIA_ROOT, 'texts')
+
 def create_txt(content, file_name):
     try:
-        file_path = os.path.join(settings.MEDIA_ROOT, 'texts', f"{file_name}.txt")
+        file_path = os.path.join(TXTS_PATH, f"{file_name}.txt")
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
         
         with open(file_path, 'w', encoding='utf-8') as file:
@@ -44,7 +46,7 @@ def save_videos_and_generate_text_files(videos):
         
         template = f"""{video_db.title}
 {video_db.upload_date.strftime('%d/%m/%Y')}
-{video.get('text')}
+{video_db.text}
         """
         create_txt(template, txt.id)
 
@@ -53,3 +55,8 @@ def save_videos_and_generate_text_files(videos):
     VideoTranscription.objects.bulk_create(video_objects)
     
     return video_objects
+
+
+def delete_txt(id):
+    os.remove(os.path.join(TXTS_PATH, f"{id}.txt"))
+    
