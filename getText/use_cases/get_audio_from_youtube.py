@@ -6,6 +6,7 @@ def download_youtube_audio(url, output_path):
     video_info = {
         "title": "",
         "upload_date": "",
+        "url": url,
         "video_uuid": video_uuid
     }
     ydl_opts = {
@@ -30,7 +31,7 @@ def download_youtube_audio(url, output_path):
 
         video_info['title'] = video_title
         video_info['upload_date'] = formatted_date
-        
+
 
     return video_info
 
