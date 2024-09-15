@@ -29,7 +29,8 @@ def save_videos_and_generate_text_files(videos):
             upload_date = datetime.strptime(video.get('upload_date'), "%d/%m/%Y").date()
             title = video.get('title')
             text=video.get('text').strip()
-            video_db = VideoTranscription(title=title, upload_date=upload_date,text=text )
+            url = video.get('url')
+            video_db = VideoTranscription(title=title, upload_date=upload_date, text=text, url=url)
             video_objects.append(video_db)
             
             

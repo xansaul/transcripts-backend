@@ -6,6 +6,7 @@ class VideoTranscription(models.Model):
     upload_date = models.DateField()
     txt_file = models.OneToOneField('TxtFile', on_delete=models.CASCADE, related_name='video_transcription')
     text = models.TextField()
+    url = models.URLField()
     def __str__(self):
         return f"{self.title}"
     
