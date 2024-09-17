@@ -2,8 +2,25 @@ import os
 from django.conf import settings
 from videosTxts.models import TxtFile, VideoTranscription
 from datetime import datetime
+import re
 
 TXTS_PATH = os.path.join(settings.MEDIA_ROOT, 'texts')
+
+
+def remove_repetitions(text):
+    text = re.sub(r'\b(\w+)([\s.,;!?\']+\1)+\b', r'\1', text)
+    
+    text = re.sub(r'\b((?:\w+[\s.,;!?\']+){0,3}\w+)([\s.,;!?\']+\1)+\b', r'\1', text)
+    
+    text = re.sub(r'\s+', ' ', text).strip()
+    text = re.sub(r'\s([.,;!?\'])', r'\1', text)
+    
+    text = re.sub(r'\b(\w+)(\s+\1)+\b', r'\1', text)
+    text = re.sub(r'\b((?:\w+\s+){0,10}\w+)(?:\s+\1)+\b', r'\1', text)
+    
+    return text
+
+
 
 def create_txt(content, file_name):
     try:
@@ -47,7 +64,7 @@ def save_videos_and_generate_text_files(videos):
         
         template = f"""{video_db.title}
 {video_db.upload_date.strftime('%d/%m/%Y')}
-{video_db.text}
+{remove_repetitions(video_db.text)}
         """
         create_txt(template, txt.id)
 
@@ -60,4 +77,3 @@ def save_videos_and_generate_text_files(videos):
 
 def delete_txt(id):
     os.remove(os.path.join(TXTS_PATH, f"{id}.txt"))
-    

@@ -13,7 +13,11 @@ def transcribe_audio(audio_path):
         return None
 
     try:
-        result = model.transcribe(audio_path, language="es")
+        result = model.transcribe(
+            audio_path, language = "es", 
+            temperature=0.2, beam_size = 10, 
+            condition_on_previous_text = False,
+        )
     except Exception as e:
         print(f"Error durante la transcripción: {e}")
         return None
@@ -21,7 +25,7 @@ def transcribe_audio(audio_path):
     return result.get("text", "")
 
 if __name__ == '__main__':
-    audio_text = transcribe_audio("./audio/Bios de la Barranca 10⧸09⧸24.wav")
+    audio_text = transcribe_audio("./audio/75119a16-5bf0-47f1-b503-dc054b88bb2c.flac")
     if audio_text:
         print(audio_text)
     else:
